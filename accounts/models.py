@@ -13,6 +13,11 @@ class UserManager(BaseUserManager):
 
         user = self.model(email=self.normalize_email(email))
         user.set_password(password)
+        user.active = active
+        user.is_researcher = is_researcher
+        user.is_student = is_student
+        user.is_admin = is_admin
+        user.confirmed = confirmed
         user.save(using=self._db)
         return user
 
@@ -21,8 +26,9 @@ class UserManager(BaseUserManager):
             email,
             password=password,
             is_admin=True,
-            is_researcher=True,
+            is_researcher=True
         )
+
         user.save(using=self._db)
         return user
 
@@ -56,3 +62,19 @@ class User(AbstractBaseUser):
 
     def get_absolute_url(self):
         return reverse('users:detail', kwargs={'username': self.username})
+
+    def get_full_name(self):
+        return self.email
+
+    def get_short_name(self):
+        return self.email
+
+    def has_perm(self, perm, obj=None):
+        return True
+
+    def has_module_perms(self, app_label):
+        return True
+
+    @property
+    def is_staff(self):
+        return self.is_admin
