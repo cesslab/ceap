@@ -10,13 +10,10 @@ User = get_user_model()
 
 
 class UserAdmin(BaseUserAdmin):
-    # The forms to add and change user instances
     form = UserAdminChangeForm
     add_form = UserAdminCreationForm
 
-    # The fields to be used in displaying the User model.
-    # These override the definitions on the base UserAdmin
-    # that reference specific fields on auth.User.
+    # Display Fields
     list_display = (
         'email', 'is_admin', 'is_researcher', 'is_student', 'is_active',
         'is_confirmed')
@@ -28,8 +25,7 @@ class UserAdmin(BaseUserAdmin):
         ('Permissions', {'fields': ('is_admin', 'is_researcher', 'is_student',
                                     'is_active', 'is_confirmed',)}),
     )
-    # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
-    # overrides get_fieldsets to use this attribute when creating a user.
+    # Add User Fields
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
