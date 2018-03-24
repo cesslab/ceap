@@ -40,6 +40,7 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 THIRD_PARTY_APPS = [
+    'crispy_forms'
 ]
 LOCAL_APPS = [
     'accounts'
@@ -72,7 +73,7 @@ ROOT_URLCONF = 'ceap.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
