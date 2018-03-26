@@ -1,6 +1,6 @@
 
 from django import forms
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate, login
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 
@@ -56,5 +56,22 @@ class UserAdminChangeForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    email = forms.CharField()
+    email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
+
+    def __init__(self, request, *args, **kwargs):
+        self.request = request
+        super(LoginForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        data = self.cleaned_data
+        email = data.get('email')
+        password = data.get('password')
+        print("{}, {}".format(email, password))
+
+        user = authenticate(self.request, email=email, password=password)
+        print(user)
+        if user is None:
+            raise forms.ValidationError('Invalid Credentials')
+        login(self.request, user)
+        return data
