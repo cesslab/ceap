@@ -1,6 +1,7 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
-from model_utils import TimeStampedModel
+from model_utils.models import TimeStampedModel
 
 User = get_user_model()
 
@@ -46,4 +47,3 @@ class Session(TimeStampedModel):
         return "Session {} ({}-{})".format(
             self.start_time.strftime("%m%d%Y%H%M"))
 
-# Create your models here.
