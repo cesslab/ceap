@@ -44,6 +44,13 @@
             <li class="nav-item active">
               <a class="nav-link" href="">Home <span class="sr-only"></span></a>
             </li>
+            {% if request.user.is_authenticated %}
+            {% else %}
+              <li class="nav-item">
+                {# URL provided by django-allauth/account/urls.py #}
+                <a id="sign-up-link" class="nav-link" href="{% url 'login' %}">{% trans "Login" %}</a>
+              </li>
+            {% endif %}
           </ul>
         </div>
       </nav>
@@ -62,6 +69,7 @@
         <p>Use this document as a way to quick start any new project.</p>
       {% endblock content %}
 
+      {{ request.user }}
     </div> <!-- /container -->
 
     {% block modal %}{% endblock modal %}
