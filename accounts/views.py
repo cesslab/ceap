@@ -15,7 +15,7 @@ class LoginView(LoginView):
         return kwargs
 
     def form_valid(self, form):
-        return redirect(reverse_lazy('home'))
+        return redirect(reverse_lazy('experiments:home'))
 
 # def login_page(request):
 #     form = LoginForm(request.POST)
