@@ -6,3 +6,4 @@ Werkzeug==0.14.1  # https://github.com/pallets/werkzeug
 # Django
 # ------------------------------------------------------------------------------
 django-extensions==2.0.6  # https://github.com/django-extensions/django-extensions
+django-debug-toolbar==1.9.1  # https://github.com/jazzband/django-debug-toolbar
