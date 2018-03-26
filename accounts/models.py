@@ -52,21 +52,20 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-    # First Name and Last Name do not cover name patterns
-    # around the globe.
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name', 'last_name']
+
     email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255, blank=False, null=False)
     last_name = models.CharField(max_length=255, blank=False, null=False)
-    is_active = models.BooleanField(default=False)
+    # is_active must be true in order to login
+    is_active = models.BooleanField(default=True)
     is_researcher = models.BooleanField(default=False)
     is_student = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
     is_confirmed = models.BooleanField(default=False)
     confirmed_date = models.DateTimeField(auto_now=True)
     objects = UserManager()
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     def __str__(self):
         return self.email
